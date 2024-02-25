@@ -39,11 +39,19 @@ class TestController extends Controller
                     ]);
 
             case('Genres'):
-                return Http::withoutVerifying()
+                $genres = Http::withoutVerifying()
                     ->withToken(env('TMDB_ACCESS_TOKEN'))
                     ->get( env('TMDB_API_URL') . '/genre/movie/list', [
                         'language' => $item
                     ]);
+
+                $inputArray = $genres['genres'];
+                $ids = array_column($inputArray, 'id');
+                $names = array_column($inputArray, 'name');
+
+                $resultArray = array_combine($ids, $names);
+
+                return $resultArray;
 
             case('Authorization'):
                 return Http::withoutVerifying()

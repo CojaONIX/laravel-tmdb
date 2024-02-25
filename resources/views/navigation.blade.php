@@ -11,6 +11,9 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('home.page') }}">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('movie.popular') }}">Popular</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('about.page') }}">About</a>
                 </li>
                 <li class="nav-item">

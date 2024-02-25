@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\tmdbController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +21,7 @@ Route::view('/', 'home')->name('home.page');
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
-
+Route::get('/movie/popular', [tmdbController::class, 'getPopularMovie'])->name('movie.popular');
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
 Route::post('/test', [TestController::class, 'ajaxGetTestData']);
