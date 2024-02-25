@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'home')->name('home.page');
+Route::view('/about', 'about')->name('about.page');
+Route::view('/welcome', 'welcome')->name('welcome.page');
+
+
+
+Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
+Route::post('/test', [TestController::class, 'ajaxGetTestData']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
