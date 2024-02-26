@@ -29,4 +29,14 @@ class tmdbController extends Controller
         $item = json_decode($this->tmdRepo->getMovieDetails($movie));
         return view('details', compact('item'));
     }
+
+    public function getMovieSearch(Request $request): View
+    {
+
+        $items = json_decode($this->tmdRepo->getMovieSearch($request->get('query')));
+        $genres = $this->tmdRepo->genres;
+
+        return view('items', compact('items', 'genres'));
+
+    }
 }

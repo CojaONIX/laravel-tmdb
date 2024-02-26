@@ -45,4 +45,17 @@ class tmdbRepository
 
         return $movie;
     }
+
+    public function getMovieSearch($query) : Response
+    {
+        $movies = Http::withoutVerifying()
+            ->withToken(env('TMDB_ACCESS_TOKEN'))
+            ->get( env('TMDB_API_URL') . '/search/movie', [
+                'query' => $query,
+                'language' => 'en-US',
+                'region' => ''
+            ]);
+
+        return $movies;
+    }
 }

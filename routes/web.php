@@ -23,6 +23,7 @@ Route::view('/welcome', 'welcome')->name('welcome.page');
 
 Route::get('/movie/popular', [tmdbController::class, 'getPopularMovie'])->name('movie.popular');
 Route::get('/movie/details/{movie}', [tmdbController::class, 'getMovieDetails'])->name('movie.details');
+Route::get('/movie/search', [tmdbController::class, 'getMovieSearch'])->name('movie.search');
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
 Route::post('/test', [TestController::class, 'ajaxGetTestData']);
