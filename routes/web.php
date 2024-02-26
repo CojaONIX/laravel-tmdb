@@ -22,6 +22,7 @@ Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
 Route::get('/movie/popular', [tmdbController::class, 'getPopularMovie'])->name('movie.popular');
+Route::get('/movie/details/{movie}', [tmdbController::class, 'getMovieDetails'])->name('movie.details');
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
 Route::post('/test', [TestController::class, 'ajaxGetTestData']);
