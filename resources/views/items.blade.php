@@ -21,7 +21,6 @@
 
                     <img src="https://image.tmdb.org/t/p/original/{{ $item->backdrop_path }}" class="card-img-top" alt="...">
 
-
                     <div class="card-header">
                         @foreach($item->genre_ids as $genre)
                             <span class="badge rounded-pill text-bg-warning">{{ $genres[$genre] }}</span>

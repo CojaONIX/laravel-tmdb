@@ -40,7 +40,7 @@ class tmdbRepository
             ->withToken(env('TMDB_ACCESS_TOKEN'))
             ->get( env('TMDB_API_URL') . '/movie/' . $movie , [
                 'language' => 'en-US',
-                'append_to_response' => ''
+                'append_to_response' => 'casts'
             ]);
 
         return $movie;

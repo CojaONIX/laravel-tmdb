@@ -13,13 +13,13 @@
         </div>
         <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://picsum.photos/id/1/300/100.jpg" class="d-block w-100" alt="...">
+            <img src="https://image.tmdb.org/t/p/original//nCd8G7C5mbiABQuATgos1OeAshu.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://picsum.photos/id/2/300/100.jpg" class="d-block w-100" alt="...">
+            <img src="https://image.tmdb.org/t/p/original//1stUIsjawROZxjiCMtqqXqgfZWC.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://picsum.photos/id/3/300/100.jpg" class="d-block w-100" alt="...">
+            <img src="https://image.tmdb.org/t/p/original//x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg" class="d-block w-100" alt="...">
         </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
