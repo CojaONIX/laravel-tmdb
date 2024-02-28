@@ -25,8 +25,8 @@
                         </div>
 
                         <div class="card-body">
-                            <p class="card-text">{{ $item->original_title }}</p>
-                            <h3 class="card-title">{{ $item->title }}</h3>
+                            <p class="card-text">{{ $item->original_name }}</p>
+                            <h3 class="card-title">{{ $item->name }}</h3>
                             <p class="card-text">{{ $item->overview }}</p>
                         </div>
 
@@ -41,25 +41,23 @@
     <hr>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            @foreach($item->casts->cast as $cast)
-                @isset($cast->profile_path)
-                    @if($cast->order < 12)
+            @foreach($item->seasons as $season)
+
                     <div class="card-group">
                         <div class="card">
 
                             <div class="card-header">
-                                <h5 class="text-center text-primary">{{ $cast->character }}</h5>
+                                <h5 class="text-center text-primary">{{ $season->air_date }}</h5>
                             </div>
 
-                            <img src="https://image.tmdb.org/t/p/original/{{ $cast->profile_path }}" class="card-img-top" alt="...">
+                            <img src="https://image.tmdb.org/t/p/w300/{{ $season->poster_path }}" class="card-img-top" alt="...">
 
                             <div class="card-footer">
-                                <h5 class="text-center">{{ $cast->name }}</h5>
+                                <h5 class="text-center">{{ $season->name }}</h5>
                             </div>
                         </div>
                     </div>
-                    @endif
-                @endisset
+
             @endforeach
         </div>
 
