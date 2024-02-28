@@ -16,9 +16,10 @@ class TestController extends Controller
     public function showTest(Request $request)
     {
         return view('test', ['buttons' => [
-            'Details',
-            'Popular',
-            'Genres',
+            'tvGenres',
+            'movieDetails',
+            'moviePopular',
+            'movieGenres',
             'Authorization',
 
         ]]);
@@ -29,7 +30,22 @@ class TestController extends Controller
         $item = $request->item;
         switch($request->action) {
 
-            case('Details'):
+            case('tvGenres'):
+                $genres = Http::withoutVerifying()
+                    ->withToken(env('TMDB_ACCESS_TOKEN'))
+                    ->get( env('TMDB_API_URL') . '/genre/tv/list', [
+                        'language' => $item
+                    ]);
+
+                $inputArray = $genres['genres'];
+                $ids = array_column($inputArray, 'id');
+                $names = array_column($inputArray, 'name');
+
+                $resultArray = array_combine($ids, $names);
+
+                return $resultArray;
+
+            case('movieDetails'):
                 $movie = Http::withoutVerifying()
                     ->withToken(env('TMDB_ACCESS_TOKEN'))
                     ->get( env('TMDB_API_URL') . '/movie/' . $item , [
@@ -39,7 +55,7 @@ class TestController extends Controller
 
                 return $movie;
 
-            case('Popular'):
+            case('moviePopular'):
 
                 return Http::withoutVerifying()
                     ->withToken(env('TMDB_ACCESS_TOKEN'))
@@ -49,7 +65,7 @@ class TestController extends Controller
                         'region' => ''
                     ]);
 
-            case('Genres'):
+            case('movieGenres'):
                 $genres = Http::withoutVerifying()
                     ->withToken(env('TMDB_ACCESS_TOKEN'))
                     ->get( env('TMDB_API_URL') . '/genre/movie/list', [
