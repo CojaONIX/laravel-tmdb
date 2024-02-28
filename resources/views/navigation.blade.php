@@ -14,6 +14,9 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('movie') }}">Movie</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ route('tv') }}">TV</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('about.page') }}">About</a>
                 </li>
                 <li class="nav-item">

@@ -25,6 +25,10 @@ Route::get('/movie', [tmdbController::class, 'getMovieGroup'])->name('movie');
 Route::get('/movie/details/{movie}', [tmdbController::class, 'getMovieDetails'])->name('movie.details');
 Route::get('/movie/search', [tmdbController::class, 'getMovieSearch'])->name('movie.search');
 
+Route::get('/tv', [tmdbController::class, 'getTvGroup'])->name('tv');
+Route::get('/tv/details/{tv}', [tmdbController::class, 'getTvDetails'])->name('tv.details');
+Route::get('/tv/search', [tmdbController::class, 'getTvSearch'])->name('tv.search');
+
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
 Route::post('/test', [TestController::class, 'ajaxGetTestData']);
 

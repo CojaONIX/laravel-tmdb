@@ -16,6 +16,7 @@ class TestController extends Controller
     public function showTest(Request $request)
     {
         return view('test', ['buttons' => [
+            'tvPopular',
             'tvGenres',
             'movieDetails',
             'moviePopular',
@@ -29,6 +30,16 @@ class TestController extends Controller
     {
         $item = $request->item;
         switch($request->action) {
+
+            case('tvPopular'):
+
+                return Http::withoutVerifying()
+                    ->withToken(env('TMDB_ACCESS_TOKEN'))
+                    ->get( env('TMDB_API_URL') . '/tv/popular', [
+                        'page' => $item,
+                        'language' => 'en-US',
+                        'region' => ''
+                    ]);
 
             case('tvGenres'):
                 $genres = Http::withoutVerifying()

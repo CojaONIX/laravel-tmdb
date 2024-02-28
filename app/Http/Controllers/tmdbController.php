@@ -24,10 +24,9 @@ class tmdbController extends Controller
         $page =  Number::clamp($page, min: 1, max: 500);
 
         $items = json_decode($this->tmdRepo->getMovieGroup($group, $page));
-        $genres = $this->tmdRepo->genres;
+        $genres = $this->tmdRepo->getGenres('movie');
 
         return view('movie.items', compact('items', 'genres'));
-
     }
 
     public function getMovieDetails($movie)
@@ -40,9 +39,39 @@ class tmdbController extends Controller
     {
 
         $items = json_decode($this->tmdRepo->getMovieSearch($request->get('query')));
-        $genres = $this->tmdRepo->genres;
+        $genres = $this->tmdRepo->getGenres('movie');
 
         return view('movie.items', compact('items', 'genres'));
+
+    }
+
+    public function getTvGroup(Request $request): View
+    {
+
+        $group = $request->get('tv-group', 'popular');
+        $page = $request->get('page', 1);
+        $page = $page ? $page : 1;
+        $page =  Number::clamp($page, min: 1, max: 500);
+
+        $items = json_decode($this->tmdRepo->getTvGroup($group, $page));
+        $genres = $this->tmdRepo->getGenres('tv');
+
+        return view('tv.items', compact('items', 'genres'));
+    }
+
+    public function getTvDetails($tv)
+    {
+        $item = json_decode($this->tmdRepo->getTvDetails($tv));
+        return view('tv.details', compact('item'));
+    }
+
+    public function getTvSearch(Request $request): View
+    {
+
+        $items = json_decode($this->tmdRepo->getTvSearch($request->get('query')));
+        $genres = $this->tmdRepo->getGenres('tv');
+
+        return view('tv.items', compact('items', 'genres'));
 
     }
 }

@@ -18,17 +18,19 @@ use Illuminate\Support\Facades\Http;
 class tmdbRepository
 {
 
-    public array $genres;
-    public function __construct()
+    public function getGenres($media)
     {
-        $genres = Http::withoutVerifying()
+        $response = Http::withoutVerifying()
             ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/genre/movie/list', [
+            ->get( env('TMDB_API_URL') . "/genre/$media/list", [
                 'language' => 'en-US'
             ]);
 
-        foreach ($genres['genres'] as $genre)
-            $this->genres[$genre['id']] = $genre['name'];
+        $genres = [];
+        foreach ($response['genres'] as $genre)
+            $genres[$genre['id']] = $genre['name'];
+
+        return $genres;
 
     }
     public function getMovieGroup($movieGroup, $page) : Response
@@ -67,5 +69,43 @@ class tmdbRepository
             ]);
 
         return $movies;
+    }
+
+    public function getTvGroup($tvGroup, $page) : Response
+    {
+        $tvs = Http::withoutVerifying()
+            ->withToken(env('TMDB_ACCESS_TOKEN'))
+            ->get( env('TMDB_API_URL') . '/tv/' . $tvGroup, [
+                'page' => $page,
+                'language' => 'en-US',
+                'region' => ''
+            ]);
+
+        return $tvs;
+    }
+
+    public function getTvDetails($tv)
+    {
+        $tv = Http::withoutVerifying()
+            ->withToken(env('TMDB_ACCESS_TOKEN'))
+            ->get( env('TMDB_API_URL') . '/tv/' . $tv , [
+                'language' => 'en-US',
+                'append_to_response' => 'casts'
+            ]);
+
+        return $tv;
+    }
+
+    public function getTvSearch($query) : Response
+    {
+        $tvs = Http::withoutVerifying()
+            ->withToken(env('TMDB_ACCESS_TOKEN'))
+            ->get( env('TMDB_API_URL') . '/search/tv', [
+                'query' => $query,
+                'language' => 'en-US',
+                'region' => ''
+            ]);
+
+        return $tvs;
     }
 }
