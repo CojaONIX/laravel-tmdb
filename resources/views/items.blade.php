@@ -4,13 +4,26 @@
 
 @section('content')
 
-    <div class="row">
-        <h4 class="col-3">Page: {{ $items->page }} / {{ $items->total_pages }}</h4>
-        <form method="GET" action="{{ route('movie.popular') }}" class="col-4 d-flex justify-between">
-            <input class="form-control col-2 me-2" type="search" name="page" placeholder="Page" aria-label="Search">
-            <button class="btn btn-outline-success col-2" type="submit">Go to Page</button>
+        <h4 class="">Page: {{ $items->page }} / {{ $items->total_pages }}</h4>
+        <form method="GET" action="{{ route('movie') }}" class="">
+            <div class="mb-2">
+                <input type="radio" class="btn-check" name="movie-group" value="popular" id="popular" autocomplete="off" {{ request()->get('movie-group') == 'popular' ? ' checked' : ''  }} checked>
+                <label class="btn btn-outline-primary col-2" for="popular">Popular</label>
+                <input type="radio" class="btn-check" name="movie-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('movie-group') == 'top_rated' ? ' checked' : ''  }}>
+                <label class="btn btn-outline-primary col-2" for="top_rated">Top Rated</label>
+                <input type="radio" class="btn-check" name="movie-group" value="upcoming" id="upcoming" autocomplete="off" {{ request()->get('movie-group') == 'upcoming' ? ' checked' : ''  }}>
+                <label class="btn btn-outline-primary col-2" for="upcoming">Upcoming</label>
+                <input type="radio" class="btn-check" name="movie-group" value="now_playing" id="now_playing" autocomplete="off" {{ request()->get('movie-group') == 'now_playing' ? ' checked' : ''  }}>
+                <label class="btn btn-outline-primary col-2" for="now_playing">Now Playing</label>
+            </div>
+
+            <div class="row">
+                <div class="col-1 me-2">
+                    <input class="form-control" type="number" name="page" placeholder="Page" aria-label="Page" value="{{ $items->page }}" min="1" max="500">
+                </div>
+                <button class="btn btn-outline-success col-2" type="submit">Show</button>
+            </div>
         </form>
-    </div>
 
     <hr>
 
@@ -19,7 +32,7 @@
             <div class="card-group">
                 <div class="card">
 
-                    <img src="https://image.tmdb.org/t/p/original/{{ $item->backdrop_path }}" class="card-img-top" alt="...">
+                    <img src="https://image.tmdb.org/t/p/w780/{{ $item->backdrop_path }}" class="card-img-top" alt="...">
 
                     <div class="card-header">
                         @foreach($item->genre_ids as $genre)
@@ -30,7 +43,7 @@
                     <div class="card-body">
                         <p class="card-text">{{ $item->id }}: {{ $item->original_title }}</p>
                         <h3 class="card-title">{{ $item->title }}</h3>
-                        <p class="card-text">{{ \Illuminate\Support\Str::limit($item->overview, 3000, $end='...') }}</p>
+                        <p class="card-text">{{ $item->overview }}</p>
                     </div>
 
                     <div class="card-footer d-flex justify-content-between">

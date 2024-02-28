@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <p class="card-text">{{ $item->original_title }}</p>
                             <h3 class="card-title">{{ $item->title }}</h3>
-                            <p class="card-text">{{ \Illuminate\Support\Str::limit($item->overview, 3000, $end='...') }}</p>
+                            <p class="card-text">{{ $item->overview }}</p>
                         </div>
 
                         <div class="card-footer d-flex justify-content-between">

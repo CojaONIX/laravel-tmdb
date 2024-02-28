@@ -14,10 +14,10 @@ class tmdbController extends Controller
         $this->tmdRepo = new tmdbRepository();
     }
 
-    public function getPopularMovie(Request $request): View
+    public function getMovieGroup(Request $request): View
     {
 
-        $items = json_decode($this->tmdRepo->getPopularMovie($request->get('page')));
+        $items = json_decode($this->tmdRepo->getMovieGroup($request->get('movie-group', 'popular'), $request->get('page', 1)));
         $genres = $this->tmdRepo->genres;
 
         return view('items', compact('items', 'genres'));

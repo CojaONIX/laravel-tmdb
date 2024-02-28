@@ -21,7 +21,7 @@ Route::view('/', 'home')->name('home.page');
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
-Route::get('/movie/popular', [tmdbController::class, 'getPopularMovie'])->name('movie.popular');
+Route::get('/movie', [tmdbController::class, 'getMovieGroup'])->name('movie');
 Route::get('/movie/details/{movie}', [tmdbController::class, 'getMovieDetails'])->name('movie.details');
 Route::get('/movie/search', [tmdbController::class, 'getMovieSearch'])->name('movie.search');
 

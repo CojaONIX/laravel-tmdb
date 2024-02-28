@@ -5,6 +5,16 @@ namespace App\Repositories;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
+// https://api.themoviedb.org/3/movie/popular
+// https://api.themoviedb.org/3/movie/top_rated
+// https://api.themoviedb.org/3/movie/upcoming
+// https://api.themoviedb.org/3/movie/now_playing
+
+// https://api.themoviedb.org/3/tv/popular
+// https://api.themoviedb.org/3/tv/top_rated
+// https://api.themoviedb.org/3/tv/on_the_air
+// https://api.themoviedb.org/3/tv/airing_today
+
 class tmdbRepository
 {
 
@@ -21,11 +31,11 @@ class tmdbRepository
             $this->genres[$genre['id']] = $genre['name'];
 
     }
-    public function getPopularMovie($page=1) : Response
+    public function getMovieGroup($movieGroup, $page) : Response
     {
         $movies = Http::withoutVerifying()
             ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/movie/popular', [
+            ->get( env('TMDB_API_URL') . '/movie/' . $movieGroup, [
                 'page' => $page,
                 'language' => 'en-US',
                 'region' => ''
