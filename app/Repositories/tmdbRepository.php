@@ -24,7 +24,7 @@ class tmdbRepository
         $genres = Http::withoutVerifying()
             ->withToken(env('TMDB_ACCESS_TOKEN'))
             ->get( env('TMDB_API_URL') . '/genre/movie/list', [
-                'language' => 'sr'
+                'language' => 'en-US'
             ]);
 
         foreach ($genres['genres'] as $genre)

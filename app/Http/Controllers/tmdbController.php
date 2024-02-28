@@ -20,14 +20,14 @@ class tmdbController extends Controller
         $items = json_decode($this->tmdRepo->getMovieGroup($request->get('movie-group', 'popular'), $request->get('page', 1)));
         $genres = $this->tmdRepo->genres;
 
-        return view('items', compact('items', 'genres'));
+        return view('movie.items', compact('items', 'genres'));
 
     }
 
     public function getMovieDetails($movie)
     {
         $item = json_decode($this->tmdRepo->getMovieDetails($movie));
-        return view('details', compact('item'));
+        return view('movie.details', compact('item'));
     }
 
     public function getMovieSearch(Request $request): View
@@ -36,7 +36,7 @@ class tmdbController extends Controller
         $items = json_decode($this->tmdRepo->getMovieSearch($request->get('query')));
         $genres = $this->tmdRepo->genres;
 
-        return view('items', compact('items', 'genres'));
+        return view('movie.items', compact('items', 'genres'));
 
     }
 }
