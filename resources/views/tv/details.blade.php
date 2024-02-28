@@ -50,7 +50,11 @@
                                 <h5 class="text-center text-primary">{{ $season->air_date }}</h5>
                             </div>
 
-                            <img src="https://image.tmdb.org/t/p/w300/{{ $season->poster_path }}" class="card-img-top" alt="...">
+                            @if($season->poster_path)
+                                <img src="https://image.tmdb.org/t/p/w300/{{ $season->poster_path }}" class="card-img-top" alt="...">
+                            @else
+                                <img src="https://fakeimg.pl/300x450/cccccc/255/?text=No Image" class="card-img-top">
+                            @endif
 
                             <div class="card-footer">
                                 <h5 class="text-center">{{ $season->name }}</h5>

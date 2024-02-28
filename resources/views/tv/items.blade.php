@@ -32,7 +32,11 @@
             <div class="card-group">
                 <div class="card">
 
-                    <img src="https://image.tmdb.org/t/p/w780/{{ $item->backdrop_path }}" class="card-img-top" alt="...">
+                    @if($item->backdrop_path)
+                        <img src="https://image.tmdb.org/t/p/w780/{{ $item->backdrop_path }}" class="card-img-top" alt="...">
+                    @else
+                        <img src="https://fakeimg.pl/390x220/cccccc/255/?text=No Image" class="card-img-top">
+                    @endif
 
                     <div class="card-header">
                         @foreach($item->genre_ids as $genre)

@@ -42,24 +42,28 @@
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             @foreach($item->casts->cast as $cast)
-                @isset($cast->profile_path)
-                    @if($cast->order < 12)
-                    <div class="card-group">
-                        <div class="card">
+                <div class="card-group">
+                    <div class="card">
 
-                            <div class="card-header">
-                                <h5 class="text-center text-primary">{{ $cast->character }}</h5>
-                            </div>
+                        <div class="card-header">
+                            <h5 class="text-center text-primary">{{ $cast->character }}</h5>
+                        </div>
 
-                            <img src="https://image.tmdb.org/t/p/original/{{ $cast->profile_path }}" class="card-img-top" alt="...">
+                        @if($cast->profile_path)
+                            <img src="https://image.tmdb.org/t/p/w300/{{ $cast->profile_path }}" class="card-img-top" alt="...">
+                        @else
+                            <img src="https://fakeimg.pl/300x450/cccccc/255/?text=No Image" class="card-img-top">
+                        @endif
 
-                            <div class="card-footer">
-                                <h5 class="text-center">{{ $cast->name }}</h5>
-                            </div>
+                        <div class="card-body">
+                            <h5 class="text-center">{{ $cast->credit_id }}</h5>
+                        </div>
+
+                        <div class="card-footer">
+                            <h5 class="text-center">{{ $cast->name }}</h5>
                         </div>
                     </div>
-                    @endif
-                @endisset
+                </div>
             @endforeach
         </div>
 
