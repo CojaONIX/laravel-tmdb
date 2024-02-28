@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Http;
 // https://api.themoviedb.org/3/tv/on_the_air
 // https://api.themoviedb.org/3/tv/airing_today
 
+// https://api.themoviedb.org/3/discover/movie?&with_genres=28
+
 class tmdbRepository
 {
 

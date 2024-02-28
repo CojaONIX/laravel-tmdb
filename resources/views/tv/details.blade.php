@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Movie Details')
+@section('title', 'TV Details')
 
 @section('content')
 
@@ -14,7 +14,11 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-3">
-                        <img src="https://image.tmdb.org/t/p/original/{{ $item->poster_path }}" class="img-fluid rounded-start" alt="...">
+                        @if($item->poster_path)
+                            <img src="https://image.tmdb.org/t/p/original/{{ $item->poster_path }}" class="img-fluid rounded-start" alt="...">
+                        @else
+                            <img src="https://fakeimg.pl/300x450/cccccc/255/?text=No Image" class="card-img-top">
+                        @endif
                     </div>
 
                     <div class="col-md-9">
