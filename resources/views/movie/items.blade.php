@@ -52,7 +52,7 @@
 
                     <div class="card-footer d-flex justify-content-between">
                         <h4>Rate: {{ number_format($item->vote_average, 2) }}</h4>
-                        <a href="{{ route('movie.details', ['movie' => $item->id]) }}" class="btn btn-primary">Read more...</a>
+                        <a href="{{ route('media.details', ['media' => 'movie', 'id' => $item->id]) }}" class="btn btn-primary">Read more...</a>
                     </div>
                 </div>
             </div>

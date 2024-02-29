@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Repositories\tmdbRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Number;
 use Illuminate\View\View;
 
 class tmdbController extends Controller
 {
-    private $tmdRepo;
+    private $tmdbRepo;
+
     public function __construct()
     {
-        $this->tmdRepo = new tmdbRepository();
+        $this->tmdbRepo = new tmdbRepository();
+    }
+
+    public function getMediaDetails(string $media, string $id) : View
+    {
+        $item = $this->tmdbRepo->getMediaDetails($media, $id);
+        return view($media . '.details', compact('item'));
     }
 
     public function getMovieGroup(Request $request): View
@@ -23,23 +31,17 @@ class tmdbController extends Controller
         $page = $page ? $page : 1;
         $page =  Number::clamp($page, min: 1, max: 500);
 
-        $items = json_decode($this->tmdRepo->getMovieGroup($group, $page));
-        $genres = $this->tmdRepo->getGenres('movie');
+        $items = json_decode($this->tmdbRepo->getMovieGroup($group, $page));
+        $genres = $this->tmdbRepo->getGenres('movie');
 
         return view('movie.items', compact('items', 'genres'));
-    }
-
-    public function getMovieDetails($movie)
-    {
-        $item = json_decode($this->tmdRepo->getMovieDetails($movie));
-        return view('movie.details', compact('item'));
     }
 
     public function getMovieSearch(Request $request): View
     {
 
-        $items = json_decode($this->tmdRepo->getMovieSearch($request->get('query')));
-        $genres = $this->tmdRepo->getGenres('movie');
+        $items = json_decode($this->tmdbRepo->getMovieSearch($request->get('query')));
+        $genres = $this->tmdbRepo->getGenres('movie');
 
         return view('movie.items', compact('items', 'genres'));
 
@@ -53,23 +55,17 @@ class tmdbController extends Controller
         $page = $page ? $page : 1;
         $page =  Number::clamp($page, min: 1, max: 500);
 
-        $items = json_decode($this->tmdRepo->getTvGroup($group, $page));
-        $genres = $this->tmdRepo->getGenres('tv');
+        $items = json_decode($this->tmdbRepo->getTvGroup($group, $page));
+        $genres = $this->tmdbRepo->getGenres('tv');
 
         return view('tv.items', compact('items', 'genres'));
-    }
-
-    public function getTvDetails($tv)
-    {
-        $item = json_decode($this->tmdRepo->getTvDetails($tv));
-        return view('tv.details', compact('item'));
     }
 
     public function getTvSearch(Request $request): View
     {
 
-        $items = json_decode($this->tmdRepo->getTvSearch($request->get('query')));
-        $genres = $this->tmdRepo->getGenres('tv');
+        $items = json_decode($this->tmdbRepo->getTvSearch($request->get('query')));
+        $genres = $this->tmdbRepo->getGenres('tv');
 
         return view('tv.items', compact('items', 'genres'));
 
