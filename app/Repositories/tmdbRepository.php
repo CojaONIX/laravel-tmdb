@@ -21,10 +21,43 @@ use Illuminate\Support\Number;
 class tmdbRepository
 {
     private $http;
+    private $url;
 
     public function __construct()
     {
         $this->http = Http::withoutVerifying()->withToken(env('TMDB_ACCESS_TOKEN'));
+        $this->api_url = env('TMDB_API_URL');
+    }
+
+    public function getMediaGenres(string $media) : array
+    {
+        $params = [
+            'language' => 'en-US'
+        ];
+
+        $response = $this->http->get( $this->api_url . "/genre/$media/list", $params);
+
+        $genres = [];
+        foreach ($response['genres'] as $genre)
+            $genres[$genre['id']] = $genre['name'];
+
+        return $genres;
+    }
+
+    public function getMediaGroup(string $media, string $group, int $page) : Object
+    {
+        $page = $page ? $page : 1;
+        $page =  Number::clamp($page, min: 1, max: 500);
+
+        $params = [
+            'language' => 'en-US',
+            'page' => $page
+        ];
+
+        $items = json_decode($this->http->get( $this->api_url . "/$media/$group", $params));
+        $items->genres = $this->getMediaGenres($media);
+
+        return $items;
     }
 
     public function getMediaDetails(string $media, string $id) : Object
@@ -37,40 +70,8 @@ class tmdbRepository
             $params['append_to_response'] = 'casts';
 
         return json_decode(
-            $this->http->get( env('TMDB_API_URL') . "/$media/$id" , $params)
+            $this->http->get( $this->api_url . "/$media/$id" , $params)
         );
-    }
-
-    public function getMediaGroup($media, $group, $page) : Object
-    {
-        $page = $page ? $page : 1;
-        $page =  Number::clamp($page, min: 1, max: 500);
-
-        $params = [
-            'language' => 'en-US',
-            'page' => $page
-        ];
-
-        $items = json_decode($this->http->get( env('TMDB_API_URL') . "/$media/$group", $params));
-        $items->genres = $this->getGenres($media);
-
-        return $items;
-    }
-
-    public function getGenres($media)
-    {
-        $response = Http::withoutVerifying()
-            ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . "/genre/$media/list", [
-                'language' => 'en-US'
-            ]);
-
-        $genres = [];
-        foreach ($response['genres'] as $genre)
-            $genres[$genre['id']] = $genre['name'];
-
-        return $genres;
-
     }
 
 
@@ -79,7 +80,7 @@ class tmdbRepository
     {
         $movies = Http::withoutVerifying()
             ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/search/movie', [
+            ->get( $this->api_url . '/search/movie', [
                 'query' => $query,
                 'language' => 'en-US'
             ]);
@@ -92,7 +93,7 @@ class tmdbRepository
     {
         $tvs = Http::withoutVerifying()
             ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/search/tv', [
+            ->get( $this->api_url . '/search/tv', [
                 'query' => $query,
                 'language' => 'en-US'
             ]);

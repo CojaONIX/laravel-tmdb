@@ -38,7 +38,7 @@ class tmdbController extends Controller
     {
 
         $items = json_decode($this->tmdbRepo->getMovieSearch($request->get('query')));
-        $genres = $this->tmdbRepo->getGenres('movie');
+        $genres = $this->tmdbRepo->getMediaGenres('movie');
 
         return view('movie.items', compact('items', 'genres'));
 
@@ -49,7 +49,7 @@ class tmdbController extends Controller
     {
 
         $items = json_decode($this->tmdbRepo->getTvSearch($request->get('query')));
-        $genres = $this->tmdbRepo->getGenres('tv');
+        $genres = $this->tmdbRepo->getMediaGenres('tv');
 
         return view('tv.items', compact('items', 'genres'));
 
