@@ -5,15 +5,15 @@
 @section('content')
 
         <h4 class="">Page: {{ $items->page }} / {{ $items->total_pages }}</h4>
-        <form method="GET" action="{{ route('tv') }}" class="">
+        <form method="GET" action="{{ route('media.items', ['media'=>'tv']) }}" class="">
             <div class="mb-2">
-                <input type="radio" class="btn-check" name="tv-group" value="popular" id="popular" autocomplete="off" {{ request()->get('tv-group') == 'popular' ? ' checked' : ''  }} checked>
+                <input type="radio" class="btn-check" name="media-group" value="popular" id="popular" autocomplete="off" {{ request()->get('media-group') == 'popular' ? ' checked' : ''  }} checked>
                 <label class="btn btn-outline-primary col-2" for="popular">Popular</label>
-                <input type="radio" class="btn-check" name="tv-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('tv-group') == 'top_rated' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('media-group') == 'top_rated' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="top_rated">Top Rated</label>
-                <input type="radio" class="btn-check" name="tv-group" value="on_the_air" id="on_the_air" autocomplete="off" {{ request()->get('tv-group') == 'on_the_air' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="on_the_air" id="on_the_air" autocomplete="off" {{ request()->get('media-group') == 'on_the_air' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="on_the_air">On The Air</label>
-                <input type="radio" class="btn-check" name="tv-group" value="airing_today" id="airing_today" autocomplete="off" {{ request()->get('tv-group') == 'airing_today' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="airing_today" id="airing_today" autocomplete="off" {{ request()->get('media-group') == 'airing_today' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="airing_today">Airing Today</label>
             </div>
 
@@ -40,7 +40,7 @@
 
                     <div class="card-header">
                         @foreach($item->genre_ids as $genre)
-                            <span class="badge rounded-pill text-bg-warning">{{ $genres[$genre] }}</span>
+                            <span class="badge rounded-pill text-bg-warning">{{ $items->genres[$genre] }}</span>
                         @endforeach
                     </div>
 
@@ -52,7 +52,7 @@
 
                     <div class="card-footer d-flex justify-content-between">
                         <h4>Rate: {{ number_format($item->vote_average, 2) }}</h4>
-                        <a href="{{ route('tv.details', ['tv' => $item->id]) }}" class="btn btn-primary">Read more...</a>
+                        <a href="{{ route('media.details', ['media' => 'tv', 'id' => $item->id]) }}" class="btn btn-primary">Read more...</a>
                     </div>
                 </div>
             </div>

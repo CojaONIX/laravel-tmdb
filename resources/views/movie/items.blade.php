@@ -5,15 +5,15 @@
 @section('content')
 
         <h4 class="">Page: {{ $items->page }} / {{ $items->total_pages }}</h4>
-        <form method="GET" action="{{ route('movie') }}" class="">
+        <form method="GET" action="{{ route('media.items', ['media'=>'movie']) }}" class="">
             <div class="mb-2">
-                <input type="radio" class="btn-check" name="movie-group" value="popular" id="popular" autocomplete="off" {{ request()->get('movie-group') == 'popular' ? ' checked' : ''  }} checked>
+                <input type="radio" class="btn-check" name="media-group" value="popular" id="popular" autocomplete="off" {{ request()->get('media-group') == 'popular' ? ' checked' : ''  }} checked>
                 <label class="btn btn-outline-primary col-2" for="popular">Popular</label>
-                <input type="radio" class="btn-check" name="movie-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('movie-group') == 'top_rated' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('media-group') == 'top_rated' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="top_rated">Top Rated</label>
-                <input type="radio" class="btn-check" name="movie-group" value="upcoming" id="upcoming" autocomplete="off" {{ request()->get('movie-group') == 'upcoming' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="upcoming" id="upcoming" autocomplete="off" {{ request()->get('media-group') == 'upcoming' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="upcoming">Upcoming</label>
-                <input type="radio" class="btn-check" name="movie-group" value="now_playing" id="now_playing" autocomplete="off" {{ request()->get('movie-group') == 'now_playing' ? ' checked' : ''  }}>
+                <input type="radio" class="btn-check" name="media-group" value="now_playing" id="now_playing" autocomplete="off" {{ request()->get('media-group') == 'now_playing' ? ' checked' : ''  }}>
                 <label class="btn btn-outline-primary col-2" for="now_playing">Now Playing</label>
             </div>
 
@@ -40,7 +40,7 @@
 
                     <div class="card-header">
                         @foreach($item->genre_ids as $genre)
-                            <span class="badge rounded-pill text-bg-warning">{{ $genres[$genre] }}</span>
+                            <span class="badge rounded-pill text-bg-warning">{{ $items->genres[$genre] }}</span>
                         @endforeach
                     </div>
 

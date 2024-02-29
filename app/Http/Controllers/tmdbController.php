@@ -23,19 +23,16 @@ class tmdbController extends Controller
         return view($media . '.details', compact('item'));
     }
 
-    public function getMovieGroup(Request $request): View
+    public function getMediaGroup(Request $request, $media): View
     {
-
-        $group = $request->get('movie-group', 'popular');
+        $group = $request->get('media-group', 'popular');
         $page = $request->get('page', 1);
-        $page = $page ? $page : 1;
-        $page =  Number::clamp($page, min: 1, max: 500);
 
-        $items = json_decode($this->tmdbRepo->getMovieGroup($group, $page));
-        $genres = $this->tmdbRepo->getGenres('movie');
+        $items = $this->tmdbRepo->getMediaGroup($media, $group, $page);
 
-        return view('movie.items', compact('items', 'genres'));
+        return view($media.'.items', compact('items'));
     }
+
 
     public function getMovieSearch(Request $request): View
     {
@@ -47,19 +44,6 @@ class tmdbController extends Controller
 
     }
 
-    public function getTvGroup(Request $request): View
-    {
-
-        $group = $request->get('tv-group', 'popular');
-        $page = $request->get('page', 1);
-        $page = $page ? $page : 1;
-        $page =  Number::clamp($page, min: 1, max: 500);
-
-        $items = json_decode($this->tmdbRepo->getTvGroup($group, $page));
-        $genres = $this->tmdbRepo->getGenres('tv');
-
-        return view('tv.items', compact('items', 'genres'));
-    }
 
     public function getTvSearch(Request $request): View
     {

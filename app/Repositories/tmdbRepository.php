@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Number;
 
 // https://api.themoviedb.org/3/movie/popular
 // https://api.themoviedb.org/3/movie/top_rated
@@ -40,6 +41,22 @@ class tmdbRepository
         );
     }
 
+    public function getMediaGroup($media, $group, $page) : Object
+    {
+        $page = $page ? $page : 1;
+        $page =  Number::clamp($page, min: 1, max: 500);
+
+        $params = [
+            'language' => 'en-US',
+            'page' => $page
+        ];
+
+        $items = json_decode($this->http->get( env('TMDB_API_URL') . "/$media/$group", $params));
+        $items->genres = $this->getGenres($media);
+
+        return $items;
+    }
+
     public function getGenres($media)
     {
         $response = Http::withoutVerifying()
@@ -55,17 +72,7 @@ class tmdbRepository
         return $genres;
 
     }
-    public function getMovieGroup($movieGroup, $page) : Response
-    {
-        $movies = Http::withoutVerifying()
-            ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/movie/' . $movieGroup, [
-                'page' => $page,
-                'language' => 'en-US'
-            ]);
 
-        return $movies;
-    }
 
 
     public function getMovieSearch($query) : Response
@@ -80,17 +87,6 @@ class tmdbRepository
         return $movies;
     }
 
-    public function getTvGroup($tvGroup, $page) : Response
-    {
-        $tvs = Http::withoutVerifying()
-            ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( env('TMDB_API_URL') . '/tv/' . $tvGroup, [
-                'page' => $page,
-                'language' => 'en-US'
-            ]);
-
-        return $tvs;
-    }
 
     public function getTvSearch($query) : Response
     {

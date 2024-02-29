@@ -11,10 +11,10 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('home.page') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('movie') }}">Movie</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('media.items', ['media' => 'movie']) }}">Movie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('tv') }}">TV</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('media.items', ['media' => 'tv']) }}">TV</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('about.page') }}">About</a>

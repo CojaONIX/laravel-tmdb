@@ -22,13 +22,9 @@ Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
 Route::get('/{media}/details/{id}', [tmdbController::class, 'getMediaDetails'])->name('media.details');
+Route::get('/{media}/items', [tmdbController::class, 'getMediaGroup'])->name('media.items');
 
-Route::get('/movie', [tmdbController::class, 'getMovieGroup'])->name('movie');
-Route::get('/movie/details/{movie}', [tmdbController::class, 'getMovieDetails'])->name('movie.details');
 Route::get('/movie/search', [tmdbController::class, 'getMovieSearch'])->name('movie.search');
-
-Route::get('/tv', [tmdbController::class, 'getTvGroup'])->name('tv');
-Route::get('/tv/details/{tv}', [tmdbController::class, 'getTvDetails'])->name('tv.details');
 Route::get('/tv/search', [tmdbController::class, 'getTvSearch'])->name('tv.search');
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
