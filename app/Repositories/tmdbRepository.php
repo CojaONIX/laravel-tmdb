@@ -76,28 +76,17 @@ class tmdbRepository
 
 
 
-    public function getMovieSearch($query) : Response
+    public function getMediaSearch(string $media, string $query) : Object
     {
-        $movies = Http::withoutVerifying()
-            ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( $this->api_url . '/search/movie', [
-                'query' => $query,
-                'language' => 'en-US'
-            ]);
+        $params = [
+            'language' => 'en-US',
+            'query' => $query
+        ];
 
-        return $movies;
+        $items = json_decode($this->http->get( $this->api_url . "/search/$media", $params));
+        $items->genres = $this->getMediaGenres($media);
+
+        return $items;
     }
 
-
-    public function getTvSearch($query) : Response
-    {
-        $tvs = Http::withoutVerifying()
-            ->withToken(env('TMDB_ACCESS_TOKEN'))
-            ->get( $this->api_url . '/search/tv', [
-                'query' => $query,
-                'language' => 'en-US'
-            ]);
-
-        return $tvs;
-    }
 }

@@ -36,8 +36,8 @@
                     </ul>
                 </li>
             </ul>
-            <form method="get" action="{{ route('movie.search') }}" class="d-flex" role="search">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+            <form method="get" action="{{ route('media.search', ['media' => request('media')]) }}" class="d-flex" role="search">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" value="{{ request('query') }}">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 

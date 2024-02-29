@@ -21,11 +21,10 @@ Route::view('/', 'home')->name('home.page');
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
 
-Route::get('/{media}/details/{id}', [tmdbController::class, 'getMediaDetails'])->name('media.details');
 Route::get('/{media}/items', [tmdbController::class, 'getMediaGroup'])->name('media.items');
+Route::get('/{media}/details/{id}', [tmdbController::class, 'getMediaDetails'])->name('media.details');
+Route::get('/{media?}/search', [tmdbController::class, 'getMediaSearch'])->name('media.search');
 
-Route::get('/movie/search', [tmdbController::class, 'getMovieSearch'])->name('movie.search');
-Route::get('/tv/search', [tmdbController::class, 'getTvSearch'])->name('tv.search');
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
 Route::post('/test', [TestController::class, 'ajaxGetTestData']);

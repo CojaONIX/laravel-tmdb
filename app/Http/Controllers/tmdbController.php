@@ -34,24 +34,14 @@ class tmdbController extends Controller
     }
 
 
-    public function getMovieSearch(Request $request): View
+    public function getMediaSearch(Request $request): View
     {
+        $media = $request->media;
+        $query = $request->get('query');
 
-        $items = json_decode($this->tmdbRepo->getMovieSearch($request->get('query')));
-        $genres = $this->tmdbRepo->getMediaGenres('movie');
+        $items = $this->tmdbRepo->getMediaSearch($media, $query);
 
-        return view('movie.items', compact('items', 'genres'));
-
+        return view($media.'.items', compact('items'));
     }
 
-
-    public function getTvSearch(Request $request): View
-    {
-
-        $items = json_decode($this->tmdbRepo->getTvSearch($request->get('query')));
-        $genres = $this->tmdbRepo->getMediaGenres('tv');
-
-        return view('tv.items', compact('items', 'genres'));
-
-    }
 }
