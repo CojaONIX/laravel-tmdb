@@ -5,6 +5,7 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\tmdbController;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\tmdbController;
 |
 */
 
+URL::forceScheme('https');
+
 Route::view('/', 'home')->name('home.page');
 Route::view('/about', 'about')->name('about.page');
 Route::view('/welcome', 'welcome')->name('welcome.page');
@@ -27,7 +30,7 @@ Route::get('/{media?}/search', [tmdbController::class, 'getMediaSearch'])->name(
 
 
 Route::get('/test', [TestController::class, 'showTest'])->name('test.page');
-Route::post('/test', [TestController::class, 'ajaxGetTestData']);
+Route::post('/test', [TestController::class, 'ajaxGetTestData'])->name('test.get.data');
 
 
 Route::get('/dashboard', function () {
