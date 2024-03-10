@@ -4,24 +4,34 @@
 
 @section('content')
 
-        <h4 class="">Page: {{ $items->page }} / {{ $items->total_pages }}</h4>
-        <form method="GET" action="{{ route('media.items', ['media'=>'movie']) }}" class="">
-            <div class="mb-2">
-                <input type="radio" class="btn-check" name="media-group" value="popular" id="popular" autocomplete="off" {{ request()->get('media-group') == 'popular' ? ' checked' : ''  }} checked>
-                <label class="btn btn-outline-primary col-2" for="popular">Popular</label>
-                <input type="radio" class="btn-check" name="media-group" value="top_rated" id="top_rated" autocomplete="off" {{ request()->get('media-group') == 'top_rated' ? ' checked' : ''  }}>
-                <label class="btn btn-outline-primary col-2" for="top_rated">Top Rated</label>
-                <input type="radio" class="btn-check" name="media-group" value="upcoming" id="upcoming" autocomplete="off" {{ request()->get('media-group') == 'upcoming' ? ' checked' : ''  }}>
-                <label class="btn btn-outline-primary col-2" for="upcoming">Upcoming</label>
-                <input type="radio" class="btn-check" name="media-group" value="now_playing" id="now_playing" autocomplete="off" {{ request()->get('media-group') == 'now_playing' ? ' checked' : ''  }}>
-                <label class="btn btn-outline-primary col-2" for="now_playing">Now Playing</label>
-            </div>
-
-            <div class="row">
-                <div class="col-1 me-2">
-                    <input class="form-control" type="number" name="page" placeholder="Page" aria-label="Page" value="{{ $items->page }}" min="1" max="500">
+        <form method="GET" action="{{ route('media.items', ['media'=>'movie']) }}">
+            <div class="row mb-2">
+                <div class="col-2">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="media-group" value="popular" id="popular"{{ request()->get('media-group') == 'popular' ? ' checked' : ''  }} checked>
+                        <label class="form-check-label" for="popular">Popular</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="media-group" value="top_rated" id="top_rated"{{ request()->get('media-group') == 'top_rated' ? ' checked' : ''  }}>
+                        <label class="form-check-label" for="top_rated">Top Rated</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="media-group" value="upcoming" id="upcoming"{{ request()->get('media-group') == 'upcoming' ? ' checked' : ''  }}>
+                        <label class="form-check-label" for="upcoming">Upcoming</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="media-group" value="now_playing" id="now_playing"{{ request()->get('media-group') == 'now_playing' ? ' checked' : ''  }}>
+                        <label class="form-check-label" for="now_playing">Now Playing</label>
+                    </div>
                 </div>
-                <button class="btn btn-outline-success col-2" type="submit">Show</button>
+
+                <div class="col-10 row">
+                    <div class="col-4 me-2">
+                        <h5>Page: {{ $items->page }} / {{ $items->total_pages }}</h5>
+                        <input class="form-control" type="number" name="page" placeholder="Page" aria-label="Page" value="{{ $items->page }}" min="1" max="500">
+                        <button class="btn btn-outline-success col-12 my-2" type="submit">Show</button>
+                    </div>
+                </div>
             </div>
         </form>
 
