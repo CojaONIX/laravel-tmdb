@@ -5,8 +5,8 @@
 @section('content')
 
         <form method="GET" action="{{ route('media.items', ['media'=>'movie']) }}">
-            <div class="row mb-2">
-                <div class="col-2">
+            <div class="d-flex justify-content-evenly mb-2">
+                <div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="media-group" value="popular" id="popular"{{ request()->get('media-group') == 'popular' ? ' checked' : ''  }} checked>
                         <label class="form-check-label" for="popular">Popular</label>
@@ -25,12 +25,10 @@
                     </div>
                 </div>
 
-                <div class="col-10 row">
-                    <div class="col-4 me-2">
-                        <h5>Page: {{ $items->page }} / {{ $items->total_pages }}</h5>
-                        <input class="form-control" type="number" name="page" placeholder="Page" aria-label="Page" value="{{ $items->page }}" min="1" max="500">
-                        <button class="btn btn-outline-success col-12 my-2" type="submit">Show</button>
-                    </div>
+                <div class="col-4 me-2">
+                    <h5>Page: {{ $items->page }} / {{ $items->total_pages }}</h5>
+                    <input class="form-control" type="number" name="page" placeholder="Page" aria-label="Page" value="{{ $items->page }}" min="1" max="500">
+                    <button class="btn btn-outline-success col-12 my-2" type="submit">Show</button>
                 </div>
             </div>
         </form>
