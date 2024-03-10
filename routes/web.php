@@ -5,7 +5,6 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\tmdbController;
-use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +16,6 @@ use Illuminate\Support\Facades\URL;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-URL::forceScheme('https');
 
 Route::view('/', 'home')->name('home.page');
 Route::view('/about', 'about')->name('about.page');
